@@ -3,24 +3,52 @@ import 'package:intl/intl.dart';
 import '../theme/calendar_theme.dart';
 import '../utils/date_utils.dart';
 
-/// A customizable horizontal week calendar widget that
-/// works with any state management system.
+/// A customizable horizontal week calendar widget that allows users to select
+/// a date and navigate between weeks.
+///
+/// This widget is designed to be highly flexible and works without any
+/// dependency on external state management solutions.
 ///
 /// Example:
 /// ```dart
 /// UniversalWeekCalendar(
 ///   selectedDate: DateTime.now(),
 ///   onDateSelected: (date) => print(date),
+///   onNextWeek: () => setState(() { /* logic */ }),
+///   onPreviousWeek: () => setState(() { /* logic */ }),
 /// );
 /// ```
 class UniversalWeekCalendar extends StatelessWidget {
+  /// The currently selected date displayed in the calendar.
   final DateTime selectedDate;
+
+  /// A callback function that is called when a date is tapped by the user.
   final ValueChanged<DateTime>? onDateSelected;
+
+  /// A callback function executed when the user taps the next week button (right arrow).
   final VoidCallback? onNextWeek;
+
+  /// A callback function executed when the user taps the previous week button (left arrow).
   final VoidCallback? onPreviousWeek;
+
+  /// The theme used to customize the colors and text styles of the calendar.
   final CalendarTheme theme;
+
+  /// Optional text to display in the header. If null, it defaults to the
+  /// formatted month and year of the [selectedDate].
+  final String? headerText;
+
+  /// Optional fixed height for the calendar widget. If null, the height is
+  /// dynamically calculated based on screen width.
   final double? height;
 
+  /// Optional outer margin for the calendar container.
+  final EdgeInsetsGeometry? margin;
+
+  /// Optional inner padding for the calendar container.
+  final EdgeInsetsGeometry? padding;
+
+  /// Creates a Universal Week Calendar widget.
   const UniversalWeekCalendar({
     super.key,
     required this.selectedDate,
@@ -29,17 +57,22 @@ class UniversalWeekCalendar extends StatelessWidget {
     this.onPreviousWeek,
     this.theme = const CalendarTheme(),
     this.height,
+    this.headerText,
+    this.margin,
+    this.padding,
   });
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
+    // Calculate the start of the week (Sunday by default) based on the selected date.
     final weekStart = DateUtilsHelper.getStartOfWeek(selectedDate);
 
     return Container(
-      height: height ?? width * 0.4,
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+      // Dynamic height calculation
+      height: height ?? width * 0.45,
+      margin: margin ?? const EdgeInsets.symmetric(horizontal: 16),
+      padding: padding ?? const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
       decoration: BoxDecoration(
         color: theme.backgroundColor,
         borderRadius: BorderRadius.circular(width * 0.02),
@@ -53,6 +86,7 @@ class UniversalWeekCalendar extends StatelessWidget {
       ),
       child: Column(
         children: [
+          // Header Row for Navigation and Month/Year Display
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -62,7 +96,7 @@ class UniversalWeekCalendar extends StatelessWidget {
                 color: theme.textColor,
               ),
               Text(
-                DateFormat('MMMM yyyy').format(selectedDate),
+                headerText ?? DateFormat('MMMM yyyy').format(selectedDate),
                 style: theme.headerTextStyle ??
                     TextStyle(
                       fontSize: width * 0.037,
@@ -78,6 +112,7 @@ class UniversalWeekCalendar extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
+          // Weekday and Date Row
           SizedBox(
             height: width * 0.18,
             child: ListView.separated(
@@ -93,6 +128,7 @@ class UniversalWeekCalendar extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // Weekday Text (SUN, MON, etc.)
                       Text(
                         DateFormat('E').format(date).toUpperCase(),
                         style: theme.weekdayTextStyle ??
@@ -103,6 +139,7 @@ class UniversalWeekCalendar extends StatelessWidget {
                             ),
                       ),
                       SizedBox(height: width * 0.035),
+                      // Date Circle (Day of Month)
                       Container(
                         width: width * 0.09,
                         height: width * 0.09,
