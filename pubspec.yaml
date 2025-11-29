@@ -1,14 +1,9 @@
-
----
-
-## 🧾 `pubspec.yaml`
-
 name: universal_week_calendar
 description: A customizable horizontal week calendar widget that works with any state management.
-version: 0.1.0
-repository: https://github.com/Prashant1125/universal_week_calendar
-homepage: https://pub.dev/packages/universal_week_calendar
-issue_tracker: https://github.com/Prashant1125/universal_week_calendar/issues
+version: 0.1.1
+homepage: "https://pub.dev/packages/universal_week_calendar"
+documentation: "https://github.com/Prashant1125/universal_week_calendar/blob/main/README.md"
+repository: "https://github.com/Prashant1125/universal_week_calendar.git"
 topics:
   - calendar
   - ui
@@ -23,7 +18,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl: ^0.19.0
+  intl: ^0.20.0
 
 dev_dependencies:
   flutter_test:

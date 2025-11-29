@@ -72,7 +72,8 @@ class UniversalWeekCalendar extends StatelessWidget {
       // Dynamic height calculation
       height: height ?? width * 0.45,
       margin: margin ?? const EdgeInsets.symmetric(horizontal: 16),
-      padding: padding ?? const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+      padding:
+          padding ?? const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
       decoration: BoxDecoration(
         color: theme.backgroundColor,
         borderRadius: BorderRadius.circular(width * 0.02),
@@ -121,7 +122,8 @@ class UniversalWeekCalendar extends StatelessWidget {
               separatorBuilder: (_, __) => SizedBox(width: width * 0.03),
               itemBuilder: (context, index) {
                 final date = weekStart.add(Duration(days: index));
-                final isSelected = DateUtilsHelper.isSameDay(date, selectedDate);
+                final isSelected =
+                    DateUtilsHelper.isSameDay(date, selectedDate);
 
                 return GestureDetector(
                   onTap: () => onDateSelected?.call(date),

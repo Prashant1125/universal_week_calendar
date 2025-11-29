@@ -1,4 +1,4 @@
-# Universal Week Calendar ⏱️
+# Universal Week Calendar 📅
 
 ![Pub Version](https://img.shields.io/pub/v/universal_week_calendar?color=blue&label=pub%20version)
 ![Likes](https://img.shields.io/pub/likes/universal_week_calendar?color=yellow)
@@ -21,7 +21,7 @@ Add this to your package’s `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  universal_week_calendar : ^0.1.0
+  universal_week_calendar : ^0.1.1
   ```
 
 Then
